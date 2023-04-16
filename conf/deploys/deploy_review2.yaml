@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reviews2-deploy
+  labels:
+    app: reviews
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: reviews
+        version: v2
+    spec:
+      containers:
+      - name: reviews2
+        image: europe-west8-docker.pkg.dev/tesi-federico-siano-istio/tesi-repo/review2-module:latest
+        ports:
+        - containerPort: 8100

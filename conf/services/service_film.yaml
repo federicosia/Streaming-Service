@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: films
+spec:
+  selector:
+    app: films
+  ports:
+  - port: 8080
+    name: http

@@ -1,0 +1,28 @@
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: mesh-default
+  namespace: istio-system
+spec:
+  metrics:
+    - providers:
+        - name: stackdriver
+  accessLogging:
+    - filter:
+        expression: response.code > 400 # show log only if there is a error
+      providers:
+        - name: stackdriver
+  tracing:
+    - providers:
+        - name: stackdriver
+      customTags:
+        x-b3-traceid:
+          header:
+            name: x-b3-traceid
+        x-b3-spanid:
+          header:
+            name: x-b3-spanid
+        x-b3-sampled:
+          header:
+            name: x-b3-sampled
+      randomSamplingPercentage: 100

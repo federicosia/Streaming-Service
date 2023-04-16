@@ -1,0 +1,40 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: streaming-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "34.154.90.185"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: streaming
+spec:
+  hosts:
+  - "34.154.90.185"
+  gateways:
+  - streaming-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /homepage/film
+    route:
+    - destination:
+        host: films
+        subset: v1
+  - match:
+    - uri:
+        prefix: /users
+    route:
+    - destination:
+        host: users
+        port:
+          number: 8030

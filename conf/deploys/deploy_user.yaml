@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+      - name: users
+        image: europe-west8-docker.pkg.dev/tesi-federico-siano-istio/tesi-repo/user-module:latest
+        ports:
+        - containerPort: 8030

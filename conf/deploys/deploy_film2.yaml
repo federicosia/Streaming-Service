@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: films2-deploy
+  labels:
+    app: films
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: films
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: films
+        version: v2
+    spec:
+      containers:
+      - name: film2
+        image: europe-west8-docker.pkg.dev/tesi-federico-siano-istio/tesi-repo/film2-module:latest
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: details-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: details
+  template:
+    metadata:
+      labels:
+        app: details
+    spec:
+      containers:
+      - name: details
+        image: europe-west8-docker.pkg.dev/tesi-federico-siano-istio/tesi-repo/details-module:latest
+        ports:
+        - containerPort: 8085
